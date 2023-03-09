@@ -7,7 +7,7 @@ const Dashboard = () => {
     try {
       const response = await fetch("/api/user");
       const user = await response.json();
-      setUser(user.name);
+      setUser(user);
     } catch (error) {
       console.log(error);
     }
@@ -21,7 +21,14 @@ const Dashboard = () => {
     <div>
       <h1>Dashboard</h1>
       <br />
-      <h3>Name : {user || ""}</h3>
+      {user ? (
+        <div>
+          <h3>Name : {user.name}</h3>
+          <h3>email : {user.email}</h3>
+        </div>
+      ) : (
+        <p>user not found</p>
+      )}
     </div>
   );
 };
