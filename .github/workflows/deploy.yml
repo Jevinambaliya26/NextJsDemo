@@ -47,11 +47,11 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn run generate-zip
-      - uses: aws-actions/configure-aws-credentials@master
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - run: aws s3 cp deploy.zip s3://demo-nextjs-app/
       - run: |
           aws elasticbeanstalk create-application-version \
