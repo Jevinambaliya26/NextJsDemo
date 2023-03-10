@@ -12,13 +12,22 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
         
-      # - name: Checkout node version
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: 14
+      - name: Checkout node version
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          
+      - name: Installing yarn
+        run: npm install -g yarn
 
+      - name: Generating build
+      - run: yarn build
+      
       - name: Creating zip
-        run: zip -r deploy.zip ./ -x "*.git*" "*node_modules*" "*.env*"
+        run: yarn run generate-zip
+
+      # - name: Creating zip
+      #   run: zip -r deploy.zip ./ -x "*.git*" "*node_modules*" "*.env*"
       
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
