@@ -10,20 +10,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: 16
-      # - run: npm install -g yarn
-      # - run: yarn install --frozen-lockfile
-      # - run: yarn build
-      # - run: yarn run generate-zip
+      - name: Creating Zip
       - run: zip -r deploy.zip ./ -x "*.git*" "*node_modules*" "*.env*"
+      - name: Configure AWS Credentials
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - name: Upload Zip to S3 bucket
       - run: aws s3 cp deploy.zip s3://demo-nextjs-app/
+      - name: Create new ElasticBeanstalk Application Version
       - run: |
           aws elasticbeanstalk create-application-version \
           --application-name test-application \
