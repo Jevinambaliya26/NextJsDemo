@@ -16,12 +16,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-          
+
       - name: Installing yarn
         run: npm install -g yarn
 
       - name: Generating build
-      - run: yarn build
+        run: yarn build
       
       - name: Creating zip
         run: yarn run generate-zip
