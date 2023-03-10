@@ -1,34 +1,18 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  const [user, setUser] = useState<any>(null);
-
-  const fetchUser = async () => {
-    try {
-      const response = await fetch("/api/user");
-      const user = await response.json();
-      setUser(user);
-    } catch (error) {
-      console.log(error);
-    }
+  const router = useRouter();
+  
+  const handleRedirect = () => {
+    router.push("/user");
   };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
+  
   return (
     <div>
       <h1>Dashboard</h1>
       <br />
-      {user ? (
-        <div>
-          <h3>Name : {user.name}</h3>
-          <h3>email : {user.email}</h3>
-        </div>
-      ) : (
-        <p>user not found</p>
-      )}
+      <button onClick={handleRedirect}>click to check user details</button>
     </div>
   );
 };
