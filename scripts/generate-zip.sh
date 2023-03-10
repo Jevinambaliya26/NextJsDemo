@@ -1,1 +1,1 @@
-zip deploy.zip -r .next package.json next.config.js public .npmrc
+zip -r deploy.zip ./ -x "*.git*" "*node_modules*" "*.env*"
