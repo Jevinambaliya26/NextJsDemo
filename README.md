@@ -1,38 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# About MAS repo
 
-## Getting Started
+This repo is the common repo that will be used among all the projects
 
-First, run the development server:
+## Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### Prerequisites:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- node.js >=14.0.0
+- yarn v1
+- mysql
+- unix-like OS environemnt
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Running locally for dev
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- After cloning the repo, you also need to clone the packages folder.
+  - `git submodule update --init` clone the mas-packages folder.
+- cp `.env.example` to `.env`
+- update the DB url and double check all your env variables
+- `yarn install` to install all depencencies
+- Setting up the db.
+  - Run all pending migrations with `yarn workspace intelliKam run migrate`
+  - Generate prisma definitions with `yarn workspace intelliKam run generate`
+- To start the dev server, run `yarn dev`.
+- If all went well, you should see a dev server on http://localhost:3001
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This repo uses yarn workspaces. Ref: https://classic.yarnpkg.com/en/docs/workspaces/
 
-## Learn More
+### Packages
 
-To learn more about Next.js, take a look at the following resources:
+Libraries common to MAS go into the package folder.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Creating a new library
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- create a new folder inside the packages folder and name it appropriately. e.g. 'XYZ'
+- create a `package.json` file. If you're unsure copy from the 'db' folder.
+  - set it the same name `XYZ`
+  - set the main and types field to `index.ts`
+  - If you already have dependencies and their versions, you can put it here.
+  - **IMPORTANT** Don't run `yarn add` inside the folder
+  - cd back into the root folder, then run `yarn workspace XYZ add ABC` where `ABC` is the package name.
+- to use this package, go to the `apps/APP_NAME` folder
+  - update package.json dependency array with `ABC: "*"`. Ref `apps/docs/package.json`
 
-## Deploy on Vercel
+### DB updates
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- DB is managed by prisma and prismix. **IMPORTANT** Please don't update `prisma.schema` or `base.schema`.
+- prismix supports multiple `schema.prisma` files as long as they are in one of the apps or packages folder.
+- Run `yarn workspace db run create`. This will create corresponding .sql migration files for your changes.
+  - appropriately set a name for the migration.
+  - use sql terms like `create, alter, drop, delete` etc. to describe your changes.
+  - check the outputted `packages/db/schema.prisma` file to make sure there are no errors in the generated sql files.
+  - check the db using a F/E like mysqlworkbench or phpmyadmin to confirm if the changes are actually reflected.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Useful Links
+
+Learn more about the power of Turborepo:
+
+- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
+- [Caching](https://turborepo.org/docs/core-concepts/caching)
+- [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching)
+- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
+- [Configuration Options](https://turborepo.org/docs/reference/configuration)
+- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)

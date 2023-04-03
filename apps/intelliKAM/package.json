@@ -1,0 +1,45 @@
+{
+  "name": "intelliKam",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "yarn run generate && prisma migrate deploy && next build",
+    "start": "next start --port 3000",
+    "lint": "next lint",
+    "postinstall": "cp -R ../../node_modules/prisma/node_modules/@prisma/engines ../../node_modules/@prisma",
+    "fix": "cp -r schema.prisma /tmp/s.prisma && uniq /tmp/s.prisma schema.prisma",
+    "setup": "rimraf schema.prisma && prismix && yarn fix && prisma format",
+    "generate": "yarn setup && prisma generate",
+    "migrate": "yarn setup && prisma migrate deploy",
+    "create": "yarn setup && prisma migrate dev"
+  },
+  "dependencies": {
+    "auth": "*",
+    "codex-notifier": "^1.1.2",
+    "fetcher": "*",
+    "next": "12.0.8",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icomoon": "^2.5.7",
+    "stripe": "^11.12.0",
+    "ui": "*",
+    "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.12",
+    "@types/react": "17.0.37",
+    "@types/validator": "^13.7.12",
+    "autoprefixer": "^10.4.12",
+    "eslint": "7.32.0",
+    "eslint-config-custom": "*",
+    "next-transpile-modules": "9.0.0",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
+    "tsconfig": "*",
+    "typescript": "^4.5.3"
+  },
+  "prisma": {
+    "schema": "schema.prisma"
+  }
+}

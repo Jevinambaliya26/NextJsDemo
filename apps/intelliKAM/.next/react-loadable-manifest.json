@@ -1,0 +1,8 @@
+{
+  "../components/Notifier/index.tsx -> ./Notifier": {
+    "id": "../components/Notifier/index.tsx -> ./Notifier",
+    "files": [
+      "static/chunks/components_Notifier_Notifier_tsx.js"
+    ]
+  }
+}

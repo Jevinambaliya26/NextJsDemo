@@ -1,0 +1,6 @@
+[build]
+command = "yarn build --filter=demo"
+publish = "apps/demo/.next"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"
