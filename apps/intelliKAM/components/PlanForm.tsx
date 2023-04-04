@@ -108,7 +108,7 @@ const PlanForm: React.FC<PlanTypes> = ({id}) => {
           type="text"
           placeholder="Name here"
           value={form.name}
-          onChange={(e) => handleInputValues('name', e)}
+          onChange={(e:any) => handleInputValues('name', e)}
           error={errors?.name}
         />
         <div>
@@ -148,7 +148,7 @@ const PlanForm: React.FC<PlanTypes> = ({id}) => {
           min={0}
           placeholder="Included videos here"
           value={form.includedVideos}
-          onChange={(e) => handleInputValues('includedVideos', e)}
+          onChange={(e:any) => handleInputValues('includedVideos', e)}
         />
         <Input
           label="Price"
@@ -157,7 +157,7 @@ const PlanForm: React.FC<PlanTypes> = ({id}) => {
           min={0}
           placeholder="Price here"
           value={form.price}
-          onChange={(e) => handleInputValues('price', e)}
+          onChange={(e:any) => handleInputValues('price', e)}
         />
         <Button
           kind={ButtonKind.primaryCta}
