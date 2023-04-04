@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  binaryTargets = ["debian-openssl-1.1.x"]
+  provider   = "prisma-client-js"
+  engineType = "binary"
 }
 
 datasource db {
@@ -31,8 +31,8 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime?
 
-  createdBy     User?     @relation(name: "userUsers", fields: [createdById], references: [id])
-  users         User[]    @relation(name: "userUsers")
+  createdBy      User?            @relation(name: "userUsers", fields: [createdById], references: [id])
+  users          User[]           @relation(name: "userUsers")
   billingHistory BillingHistory[]
   connectedEmail ConnectedEmail?
   salesforce     Salesforce?
