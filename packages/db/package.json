@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.3",
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^3.14.0",
     "prismix": "https://github.com/yaseenshaik/prismix#cb7dd3b",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "prisma": "^4.10.1",
+    "prisma": "^3.14.0",
     "tsconfig": "*",
     "typescript": "^4.5.2"
   },
