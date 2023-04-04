@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000",
-    "build": "npm run generate && prisma migrate deploy && next build",
+    "build": "yarn run generate && prisma migrate deploy && next build",
     "start": "next start --port 3000",
     "lint": "next lint",
     "postinstall": "cp -R ../../node_modules/prisma/node_modules/@prisma/engines ../../node_modules/@prisma",
     "fix": "cp -r schema.prisma /tmp/s.prisma && uniq /tmp/s.prisma schema.prisma",
-    "setup": "rimraf schema.prisma && prismix && npm run fix && prisma format",
-    "generate": "npm run setup && prisma generate",
-    "migrate": "npm run setup && prisma migrate deploy",
-    "create": "npm run setup && prisma migrate dev"
+    "setup": "rimraf schema.prisma && prismix && yarn fix && prisma format",
+    "generate": "yarn setup && prisma generate",
+    "migrate": "yarn setup && prisma migrate deploy",
+    "create": "yarn setup && prisma migrate dev"
   },
   "dependencies": {
     "auth": "*",
