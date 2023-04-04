@@ -7,7 +7,7 @@
     "build": "yarn run generate && prisma migrate deploy && next build",
     "start": "next start --port 3000",
     "lint": "next lint",
-    "postinstall": "cp -R ../../node_modules/prisma/node_modules/@prisma/engines ../../node_modules/@prisma",
+    "postinstall": "cp -R ../../node_modules/prisma/node_modules/@prisma/engines ../../node_modules/@prisma && cp -R ../../node_modules/prisma ../../node_modules/@prisma",
     "fix": "cp -r schema.prisma /tmp/s.prisma && uniq /tmp/s.prisma schema.prisma",
     "setup": "rimraf schema.prisma && prismix && yarn fix && prisma format",
     "generate": "yarn setup && prisma generate",
