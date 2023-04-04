@@ -41,7 +41,7 @@ jobs:
       - name: Create new ElasticBeanstalk application version
         run: |
           aws elasticbeanstalk create-application-version \
-          --application-name test-application \
+          --application-name demo-app \
           --source-bundle S3Bucket="intellikam",S3Key="deploy.zip" \
           --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
