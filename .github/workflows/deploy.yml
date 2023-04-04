@@ -11,23 +11,6 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-        
-      # - name: Checkout node version
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: 14
-
-      # - name: Installing yarn
-      #   run: npm install -g yarn
-
-      # - name: Generating build
-      #   run: yarn build
-      
-      # - name: Creating zip
-      #   run: yarn run generate-zip
-
-      # - name: Creating zip
-      #   run: zip -r deploy.zip ./ -x "*.git*" "*node_modules*" "*.env*"
 
       - uses: actions/setup-node@v1
         with:
@@ -35,8 +18,6 @@ jobs:
       - run: npm install -g yarn
       - run: yarn config set unsafe-perm true
       - run: yarn install
-      - run: yarn build
-      - run: yarn run generate-zip
       
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -44,6 +25,15 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      
+      - name: load variables from .env
+        uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: "DB_URL"
+          env_variable_name: "DATABASE_URL"
+        
+      - run: yarn build
+      - run: yarn run generate-zip
       
       - name: Upload zip to S3 bucket
         run: aws s3 cp deploy.zip s3://intellikam/
