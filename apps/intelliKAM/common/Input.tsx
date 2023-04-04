@@ -6,7 +6,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   error?: string
 }
 
-const Input: React.FC<InputProps> = ({ label, id, error, ...props }) => {
+const Input: React.FC<any> = ({ label, id, error, ...props }) => {
   return (
     <div className="mb-3">
       <label
