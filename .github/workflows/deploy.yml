@@ -11,7 +11,10 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-
+        with:
+          token: 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
+          submodules: recursive
+          
       - uses: actions/setup-node@v1
         with:
           node-version: 14
@@ -41,7 +44,7 @@ jobs:
       - name: Create new ElasticBeanstalk application version
         run: |
           aws elasticbeanstalk create-application-version \
-          --application-name test-application \
+          --application-name demo-app \
           --source-bundle S3Bucket="intellikam",S3Key="deploy.zip" \
           --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
