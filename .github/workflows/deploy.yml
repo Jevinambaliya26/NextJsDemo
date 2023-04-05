@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-
+          
       - uses: actions/setup-node@v1
         with:
           node-version: 14
@@ -41,10 +41,10 @@ jobs:
       - name: Create new ElasticBeanstalk application version
         run: |
           aws elasticbeanstalk create-application-version \
-          --application-name demo-app \
+          --application-name intellikam \
           --source-bundle S3Bucket="intellikam",S3Key="deploy.zip" \
           --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
       
       - name: Update ElasticBeanstalk environment
-        run: aws elasticbeanstalk update-environment --environment-name Demoapp-env --version-label "ver-${{ github.sha }}"
+        run: aws elasticbeanstalk update-environment --environment-name Intellikam-env --version-label "ver-${{ github.sha }}"
