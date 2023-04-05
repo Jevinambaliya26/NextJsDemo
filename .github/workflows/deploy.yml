@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-        with:
-          token: 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
-          submodules: recursive
           
       - uses: actions/setup-node@v1
         with:
